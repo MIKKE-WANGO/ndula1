@@ -1,0 +1,137 @@
+
+.nav-bar{
+    text-align: center;
+    color: white;
+    width: 100%;
+    z-index: 10;
+    position: absolute;
+}
+
+.navv{
+    background-color: #fff;
+}
+.nav-logo h1{
+    cursor: pointer;
+    padding: 10px;
+    font-family: 'poppins', sans-serif;
+}
+
+
+.nav-logo h1 a{
+    color: red;
+    text-decoration: none;
+    font-size: 30px;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif
+}
+.nav-links{
+    flex: 1;
+    text-align: center;
+    margin-top: 10px 2px; 
+}
+
+
+.nav-links ul{
+    width: 100%;
+    margin-top: 10px;
+    color: white;  
+}
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 12px 12px;
+    padding-right: 20px;
+    color: #000000;
+    cursor: pointer;
+    
+}
+
+.nav-links ul a{
+    color: #000000;
+    text-decoration: none;
+    font-size: 16px;
+    
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.nav-links ul a:hover{
+    border-bottom: 2px solid rgb(46, 46, 206);
+}
+
+.nav-links ul a:active{
+    color: red;
+}
+.sticky{
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 8px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: padding 1s;
+    background-color: #fff;
+    width: 100%;
+    
+}
+
+.sticky ul{
+    text-align: right;
+}
+
+.menu-icon{
+    width: 40px;
+    display: none;
+}
+
+
+
+@media(max-width: 900px){
+    
+    .nav-links ul li{
+        display: block;
+    }
+    .nav-links{
+        margin-top: 2px;
+      
+    }
+    .nav-links ul{
+        padding: 1px 5px;
+    }
+    .nav-logo{
+        padding-top: 25px;
+        margin-left: 10px;
+    }
+    .nav-logo h1{
+        font-size: 30px;
+        margin-right: 30px;
+        margin-bottom: 0;
+    }
+    .menu-icon{
+        display: block;
+        top: 32px;
+        right:15px;
+        position: absolute;
+        cursor: pointer;
+        width: 45px;
+    }
+    #mobileMenu{
+        height: 0px;
+        overflow: hidden;
+        transition: 0.6s;
+    }
+
+    
+    .sticky{ 
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: block;  
+        padding: 5px 8%;
+    }
+
+    .sticky ul{
+        text-align: center;
+    }
+}

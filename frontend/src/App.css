@@ -1,0 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ 
+  scroll-behavior: smooth;
+  font-family: 'poppins', sans-serif;
+}
+
+.navspace{
+  margin-top: 80px;
+  min-height: 80vh;
+  background-color: rgb(249, 249, 249);
+}
