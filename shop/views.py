@@ -222,13 +222,37 @@ class ResetPassword(APIView):
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-
-
 class ProductsListView(ListAPIView):
-    permission_classes = (permissions.AllowAny,)
-    
+    permission_classes = (permissions.AllowAny,)  
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = None
     
+
+class ProductSearchView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def post(self, request, format=None):
+        data = request.data
+        search = data['search']
+        
+        if search == "":
+            products = Product.objects.all()
+             
+            products = ProductSerializer(products, many=True)
+            return Response(
+                {'products': products.data},
+                status=status.HTTP_200_OK
+            )
+
+
+        vector = SearchVector('name','description','brand')
+        query = SearchQuery(search)
+
+        products = Product.objects.annotate( search=vector).filter(search=query)
+        products = ProductSerializer(products, many=True)
+        return Response(
+            {'products': products.data},
+            status=status.HTTP_200_OK
+        )
+
     

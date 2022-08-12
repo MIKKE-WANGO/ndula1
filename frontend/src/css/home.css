@@ -54,6 +54,7 @@
     width: 23%;
     padding: 10px;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .col-child img{
@@ -72,6 +73,8 @@
     padding-top: 3px;
     padding-bottom: 2px;
     padding-right: 2px;
+    text-align:left;
+    margin-bottom: 30px;
 }
 
 .pbrand{
@@ -82,6 +85,8 @@
 }
 .pprice{
     padding: 8px;
+    position: absolute;
+    bottom: 10px;
 }
 
 .swiper {
@@ -139,7 +144,7 @@
     }
 
     .col-child{
-        width: 47%;
+        width: 30%;
     }
 
     .col-child img{
@@ -147,6 +152,15 @@
     }
 }
 
+
+@media(max-width: 500px){
+    .col-child{
+        width: 47%;
+    }
+    .col-child img{
+        height: 180px;
+    }
+}
 
 @media(max-width: 350px){
     .col-child{

@@ -10,4 +10,5 @@ urlpatterns = [
   path('reset-password', ResetPassword.as_view()),
   
   path('products', ProductsListView.as_view()),
+  path('product-search', ProductSearchView.as_view()),
 ]

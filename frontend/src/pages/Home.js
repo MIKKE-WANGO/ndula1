@@ -35,7 +35,7 @@ const Home = () => {
     
 
     async function getProducts() {
-        let response = await fetch('https://ndula-wango.herokuapp.com/shop/products', {
+        let response = await fetch('http://127.0.0.1:8000/shop/products', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,8 +67,8 @@ const Home = () => {
             className="mySwiper"
           >
 
-          <SwiperSlide><img src={home1}  alt="mobile menu "/></SwiperSlide>
           <SwiperSlide><img src={home2}  alt="mobile menu "/></SwiperSlide>
+          <SwiperSlide><img src={home1}  alt="mobile menu "/></SwiperSlide>
           <SwiperSlide><img src={home3}  alt="mobile menu "/></SwiperSlide>
           <SwiperSlide><img src={home4}  alt="mobile menu "/></SwiperSlide>
           <SwiperSlide><img src={home5}  alt="mobile menu "/></SwiperSlide>
@@ -84,9 +84,9 @@ const Home = () => {
       <div className='col'>
       {products.map(product =>
         product.status === 'new' ?
-        <div className='col-child'>
+        <div className='col-child'  key={product.id}>
           <Link to="#">
-            <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt="mobile menu "/>
+            <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
             <p className='pbrand'>{product.brand}</p>
             <p className='pname'>{product.name}</p>
             <p className='pprice'>{product.price}</p>
@@ -106,9 +106,9 @@ const Home = () => {
       <div className='col'>
       {products.map(product =>
         product.status === 'top' ?
-        <div className='col-child'>
+        <div className='col-child'  key={product.id}>
           <Link to="#">
-            <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt="mobile menu "/>
+            <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
             <p className='pbrand'>{product.brand}</p>
             <p className='pname'>{product.name}</p>
             <p className='pprice'>{product.price}</p>
