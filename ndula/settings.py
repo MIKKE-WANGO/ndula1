@@ -192,13 +192,11 @@ SIMPLE_JWT = {
 
 #cloudinary setup
 
-#cloudinary.config( 
-#  cloud_name = os.environ.get('cloud_name'), 
- # api_key = os.environ.get('api_key'), 
-#  api_secret = os.environ.get('api_secret') 
-#)
-
-CLOUDINARY_URL='cloudinary://936199633878895:1m_yk_HTf-t6MUxf9aUF7YazUB0@dgcbtjq3c'
+cloudinary.config( 
+ cloud_name = os.environ.get('cloud_name'), 
+ api_key = "936199633878895", 
+ api_secret = os.environ.get('api_secret') 
+)
 
 CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000']
 
