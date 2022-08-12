@@ -16,11 +16,13 @@
 }
 
 .call a{
-    font-size: 55px;
+    font-size: 57px;
     color: red;
     text-decoration: none;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     width: 100%;
+    font-style: italic;
+    font-weight: bold;
     transition: 1s;
 }
 
@@ -117,7 +119,7 @@
 
 @media(max-width: 900px){
     .call a{
-        font-size: 35px;
+        font-size: 32px;
     }
     
     .swiper{
