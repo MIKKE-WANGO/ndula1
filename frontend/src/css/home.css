@@ -117,7 +117,10 @@
     .call a{
         font-size: 25px;
     }
-        
+    
+    .intro{
+        min-height: 60vh;
+    }
     .call a:hover{
         font-size: 30px;
         color:red
