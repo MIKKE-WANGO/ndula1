@@ -1,14 +1,15 @@
 .intro{
-    min-height: 75vh;
     position: relative;
 }
 .home{
     
+  background-color: rgb(249, 249, 249);
+    margin-top: 80px;
     margin-bottom: 20px;
 }
 .call{
     position: absolute;
-    top: 93%;
+    top: 88%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9;
@@ -68,6 +69,7 @@
     padding: 8px;
     padding-top: 3px;
     padding-bottom: 2px;
+    padding-right: 2px;
 }
 
 .pbrand{
@@ -115,14 +117,17 @@
 
 @media(max-width: 900px){
     .call a{
-        font-size: 25px;
+        font-size: 35px;
     }
     
-    .intro{
-        min-height: 60vh;
+    .swiper{
+        max-height: 70vh;
+    }
+    .call{
+        top: 75%;
     }
     .call a:hover{
-        font-size: 30px;
+        font-size: 40px;
         color:red
     }
         

@@ -3,10 +3,12 @@
     display: inline-flex;
     align-content: center;
     justify-content: center;
+    margin-top: 100px;
    
 }
 .login-outer{
     min-height: 500px;
+    background-color: rgb(249, 249, 249);
 }
 .login-inner{
     width: 40%;
