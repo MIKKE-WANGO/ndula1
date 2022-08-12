@@ -22,7 +22,7 @@ const Shop = () => {
     }, []);
   
   async function getProducts() {
-      let response = await fetch('http://127.0.0.1:8000/shop/products', {
+      let response = await fetch('https://ndula-wango.herokuapp.com/shop/products', {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -30,7 +30,8 @@ const Shop = () => {
           },
       });
       let data = await response.json();       
-      setProducts(data);   
+      setProducts(data);  
+      setFiltered(data)
   }
 
   const filterBrand = (brand) => {
@@ -50,7 +51,7 @@ const Shop = () => {
   }
 
   async function searchProducts(query) {
-      let response = await fetch(`http://127.0.0.1:8000/shop/product-search`, {
+      let response = await fetch(`https://ndula-wango.herokuapp.com/hop/product-search`, {
 
           method: 'POST',
           headers: {
