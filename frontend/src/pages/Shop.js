@@ -12,7 +12,7 @@ const Shop = () => {
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState("")
 
-  const [filtered, setFiltered] = useState([])
+  const [brand, setBrand] = useState("ALL")
   
   const [empty, setEmpty] = useState(false)
     
@@ -20,6 +20,11 @@ const Shop = () => {
   useEffect(() => {
       getProducts()
     }, []);
+
+    
+  useEffect(() => {
+    
+  }, [brand]);
   
   async function getProducts() {
       let response = await fetch('https://ndula-wango.herokuapp.com/shop/products', {
@@ -31,18 +36,17 @@ const Shop = () => {
       });
       let data = await response.json();       
       setProducts(data);  
-      setFiltered(data)
   }
 
-  const filterBrand = (brand) => {
-
-  }
-  
   const onSubmit = e => {
     e.preventDefault()
     searchProducts(search)
    
   };
+
+  const changeBrand = (brand) => {
+    setBrand(brand)
+  }
 
 
   const onChange = (e) => {
@@ -109,18 +113,18 @@ const Shop = () => {
         
         <div className='search'>
           <form onSubmit={e => onSubmit(e)} >
-            <input type="text" placeholder="Search.." name="search" autoComplete='false' onChange={e => onChange(e)} />
-            <button type="submit"><i class="fas fa-search"></i></button>
+            <input type="text" placeholder="Search.." name="search" autoComplete='false'  onChange={e => onChange(e)} />
+            <button type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div>
 
         <div class="dropdown">
-            <p onClick={showBrands} class="dropbtn">BRAND <i class="fa fa-arrow-down arrow"></i></p>
+            <p onClick={showBrands} class="dropbtn">CHOOSE BRAND: {brand}<i class="fa fa-arrow-down arrow"></i></p>
             <div id="myDropdown" class="dropdown-content">
-              <p>All</p>
-              <p>Nike</p>
-              <p>Adiddas</p>
-              <p>New Balance</p>
+              <p onClick={e => changeBrand('ALL')}>All</p>
+              <p onClick={e => changeBrand('NIKE')}> Nike</p>
+              <p onClick={e => changeBrand('ADIDDAS')}>Adiddas</p>
+              <p onClick={e => changeBrand('NEW BALANCE')}>New Balance</p>
             </div>
           </div>
 
@@ -139,25 +143,68 @@ const Shop = () => {
           :
           <>
             {products.map(product =>
-            
-              <div className='col-child' key={product.id}>
-                <Link to="#">
-                  <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
-                  <p className='pbrand'>{product.brand}</p>
-                  <p className='pname'>{product.name}</p>
-                  <p className='pprice'>{product.price}</p>
-                  
-                  <p className='pprice'></p>
-                </Link>
-              </div>
-          
+              brand === 'ALL'
+              ?
+                <div className='col-child' key={product.id}>
+                  <Link to="#">
+                    <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
+                    <p className='pbrand'>{product.brand}</p>
+                    <p className='pname'>{product.name}</p>
+                    <p className='pprice'>{product.price}</p>
+                    
+                    <p className='pprice'></p>
+                  </Link>
+                </div>
+              : 
+                brand ==="NIKE"
+                ?
+                  product.brand === 'nike'
+                  ?
+                    <div className='col-child' key={product.id}>
+                    <Link to="#">
+                      <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
+                      <p className='pbrand'>{product.brand}</p>
+                      <p className='pname'>{product.name}</p>
+                      <p className='pprice'>{product.price}</p>
+                      
+                      <p className='pprice'></p>
+                    </Link>
+                    </div>
+                  :<></>
+                : 
+                  brand === 'ADIDDAS'
+                  ?
+                    product.brand === 'adiddas'
+                    ?
+                      <div className='col-child' key={product.id}>
+                      <Link to="#">
+                        <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
+                        <p className='pbrand'>{product.brand}</p>
+                        <p className='pname'>{product.name}</p>
+                        <p className='pprice'>{product.price}</p>
+                        
+                        <p className='pprice'></p>
+                      </Link>
+                      </div>
+                    :<></>
+                  : brand === 'NEW BALANCE'
+                    ?
+                      product.brand === 'new balance'
+                      ?
+                        <div className='col-child' key={product.id}>
+                        <Link to="#">
+                          <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
+                          <p className='pbrand'>{product.brand}</p>
+                          <p className='pname'>{product.name}</p>
+                          <p className='pprice'>{product.price}</p>                          
+                          <p className='pprice'></p>
+                        </Link>
+                        </div>
+                      :<></>
+                    :<></>    
             )}</>
       }
       </div>
-
-      
-
-
     </div>
   )
 }

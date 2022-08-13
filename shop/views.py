@@ -245,7 +245,7 @@ class ProductSearchView(APIView):
             )
 
 
-        vector = SearchVector('name','description','brand')
+        vector = SearchVector('name','description','brand','color')
         query = SearchQuery(search)
 
         products = Product.objects.annotate( search=vector).filter(search=query)

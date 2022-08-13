@@ -50,7 +50,7 @@
 .search button{
     width: 10%;
     height: 50px;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .filters .dropdown{
@@ -60,7 +60,7 @@
 
 /* Dropdown Button */
 .dropbtn {
-    width: 30%;
+    width: 60%;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -88,7 +88,7 @@
     display: none;
     position: absolute;
     background-color: white;
-    width: 30%;
+    width: 60%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
@@ -135,6 +135,7 @@
         
     .search input[type=text] {
         width: 80%;
+        height: 40px;
         
     } 
     .search input[type=text]:focus {
@@ -143,9 +144,13 @@
     
     .search button{
         width: 20%;
+        
+        height: 40px;
     }
     .dropbtn {
         width: 100%;
+        font-size: 14px;
+        height: 40px;
         
         
     }
