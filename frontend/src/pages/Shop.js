@@ -119,7 +119,7 @@ const Shop = () => {
         </div>
 
         <div class="dropdown">
-            <p onClick={showBrands} class="dropbtn">CHOOSE BRAND: {brand}<i style={{paddingLeft:10}} class="fa fa-arrow-down arrow"></i></p>
+            <p onClick={showBrands} class="dropbtn">CHOOSE BRAND: {brand}</p>
             <div id="myDropdown" class="dropdown-content">
               <p onClick={e => changeBrand('ALL')}>All</p>
               <p onClick={e => changeBrand('NIKE')}> Nike</p>
