@@ -51,7 +51,7 @@ const Shop = () => {
   }
 
   async function searchProducts(query) {
-      let response = await fetch(`https://ndula-wango.herokuapp.com/hop/product-search`, {
+      let response = await fetch(`https://ndula-wango.herokuapp.com/shop/product-search`, {
 
           method: 'POST',
           headers: {

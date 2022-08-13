@@ -11,8 +11,6 @@ from cloudinary.models import CloudinaryField
 #custom user manager
 class UserAccountManager(BaseUserManager):
 
-
-
     def create_user(self, email, name, phone, password=None):
         if not email:
             raise ValueError('Users must have email address')
@@ -38,9 +36,7 @@ class UserAccountManager(BaseUserManager):
         user.is_staff = True
         user.save()
 
-        return user
-
-    
+        return user    
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
 
@@ -82,8 +78,6 @@ class Customer(models.Model):
     def __str__(self):
         return self.user.email
 
-
-
 class Product(models.Model):
     class Color(models.TextChoices):
         BLACK = 'black'
@@ -92,7 +86,6 @@ class Product(models.Model):
         GREEN = 'green'
         BLUE = 'blue'
         WHITE = 'white'
-    
     
     class Status(models.TextChoices):
         NEW = 'new'
