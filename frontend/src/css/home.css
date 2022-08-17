@@ -38,6 +38,7 @@
 .heading h2{
     color: black;
     padding: 40px;
+    padding-bottom: 30px;
 }
 
 .col{
@@ -153,7 +154,7 @@
 }
 
 
-@media(max-width: 500px){
+@media(max-width: 570px){
     .col-child{
         width: 47%;
     }

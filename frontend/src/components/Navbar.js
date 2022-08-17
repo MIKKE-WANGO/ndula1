@@ -19,7 +19,7 @@ const Navbar = (props) => {
 
   async function  Verify  ()  {
     //retrieve refresh and access
-    let response = await fetch(' https://ndula-wango.herokuapp.com/api/token/verify', {
+    let response = await fetch(' http://127.0.0.1:8000/api/token/verify', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',        
@@ -86,7 +86,7 @@ let logout = () => {
                     <li><Link to="/cart" class="highlight" onClick={e => reduceMenu(e)}>Cart</Link></li>
                     {verified ? 
                     <>
-                     <li><Link to="#" class="highlight" onClick={e => reduceMenu(e)}>Acount</Link></li>
+                     <li><Link to="account" class="highlight" onClick={e => reduceMenu(e)}>Acount</Link></li>
                   
                     <li><Link  to="#" class="highlight" onClick={logout}>Logout</Link></li>
                     

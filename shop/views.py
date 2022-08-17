@@ -229,6 +229,20 @@ class ProductsListView(ListAPIView):
     pagination_class = None
     
 
+class RecommendedView(ListAPIView):
+    permission_classes = (permissions.AllowAny,) 
+
+    def post(self, request, format=None):
+        data = request.data
+        brand = data['brand']
+        products = Product.objects.filter(brand=brand)
+        products = ProductSerializer(products, many=True)
+      
+        return Response(
+            {'products': products.data},
+            status=status.HTTP_200_OK
+        )
+
 class ProductSearchView(APIView):
     permission_classes = (permissions.AllowAny,)
     def post(self, request, format=None):
@@ -255,4 +269,185 @@ class ProductSearchView(APIView):
             status=status.HTTP_200_OK
         )
 
+
+
+class ProductDetailView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request, pk):
+        product = Product.objects.get(id=pk)
+        if (request.user.is_authenticated == True):
+            user = request.user
+            wishlist = WishlistItem.objects.filter(user=user,product=product).exists()
+            sizes = Sizes.objects.filter(Product=product)
+            product = ProductSerializer(product)
+            sizes = SizeSerializer(sizes, many=True)
+            return Response(
+            {'product': product.data,'wishlist':wishlist, 'sizes':sizes.data},
+            status=status.HTTP_200_OK
+            )
+        else:          
+            
+            sizes = Sizes.objects.filter(Product=product)
+            product = ProductSerializer(product)
+            
+            sizes = SizeSerializer(sizes, many=True)
+            
+            return Response(
+            {'product': product.data,'wishlist':False, 'sizes':sizes.data},
+            status=status.HTTP_200_OK
+            )
+
+
+
+class WishlistItemView(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        productId = data['productId']
+        user = request.user
+        product = Product.objects.get(id=productId)
+
+        if WishlistItem.objects.filter(user=user, product=product).exists():
+            item = WishlistItem.objects.get(user=user, product=product)
+            item.delete()
+            return Response(
+            {'success': 'Wishlist item removed successfully'},
+            status=status.HTTP_201_CREATED
+        )
+
+        item = WishlistItem(user=user, product=product)
+        item.save()
+
+        return Response(
+            {'success': 'Wishlist item created successfully'},
+            status=status.HTTP_201_CREATED
+        )
+
+    def get(self, request, format=None):
+        user = request.user
+        items = WishlistItem.objects.filter(user=user)
+        products = []
+        for item in items:
+            id = item.product.id
+            product = Product.objects.get(id=id)
+            product = ProductSerializer(product)
+            product = product.data
+            products.append(product)
+        
+        return Response(
+            {'wishlist': products},
+            status=status.HTTP_200_OK
+        )
+
+
+      
+class CreateReviewView(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        productId = data['productId']
+        comment = data['comment']
+        rating = data['rating']
+        rating = rating/20
+        user = request.user
+        product = Product.objects.get(id=productId)
+
+        review = Review(user = user, name=user.name,product=product, rating=rating, comment=comment)
+        review.save()
+
+        #update product's rating
+        product.get_avg_rating      
+
+        return Response(
+            {'success': 'Review created successfully'},
+            status=status.HTTP_201_CREATED
+        )
+
+
+
+class GetReviewView(APIView):
     
+    permission_classes = (permissions.AllowAny,)
+    def post(self, request, format=None):
+        data = request.data
+        productId = data['productId']
+        
+        product = Product.objects.get(id=productId)
+        reviews = Review.objects.filter(product=product)
+        reviews = ReviewSerializer(reviews, many=True)
+
+        return Response(
+            {'reviews': reviews.data},
+            status=status.HTTP_200_OK
+        )
+        
+
+
+class ManageOrder(APIView):
+
+    #update orderitems quantity
+    def post(self, request, format=None):
+        data = request.data
+        productId = data['productId']
+        action = data['action']
+        quantity = data['quantity']
+        size = data['size']
+
+        user = request.user
+        customer, created = Customer.objects.get_or_create(user=user,name=user.name,email=user.email,phone= user.phone)
+
+        order, created = Order.objects.get_or_create(customer=customer, paid=False)
+
+        product = Product.objects.get(id=productId)
+        orderItem, created = OrderItem.objects.get_or_create(order=order,product=product, size=size)
+
+        sizeAvailable = Sizes.objects.get(size=size, Product=product)
+    
+        if action == 'add':
+            
+            orderItem.quantity = (orderItem.quantity + quantity)
+        elif action == 'remove':
+            orderItem.quantity = (orderItem.quantity - 1)
+
+        if sizeAvailable.quantity >= orderItem.quantity:
+            orderItem.save()
+        else:
+             return Response(
+                {'error': 'Quantity not available'},
+                status=status.HTTP_200_OK
+            )
+
+        if orderItem.quantity <= 0:
+            orderItem.delete()
+   
+
+        return Response(
+                {'success': 'order updated'},
+                status=status.HTTP_200_OK
+            )
+
+    #get orderitems to display in cart,cart_total_price,cart_total_quantity
+    def get(self, request, format=None):
+        user = request.user
+        customer, created = Customer.objects.get_or_create(user=user,name=user.name,email=user.email,phone= user.phone)
+
+        order, created = Order.objects.get_or_create(customer=customer, paid=False)
+
+        orderitems = order.orderitem_set.all()
+        total_cart_price = order.get_cart_total_price
+        total_cart_quantity = order.get_cart_quantity
+        cartItems = []
+
+        for item in orderitems:
+            #get serialized image from product table
+            p = Product.objects.get(id=item.product.id)
+            p = ProductSerializer(p)
+            p = p.data
+            image=p['image']
+
+            product = {"id":item.product.id, "image":image, "name": item.product.name, "size":item.size,"price": item.product.price, "quantity":item.quantity, "total_price": item.get_total_price}
+            cartItems.append(product)
+
+        
+        return Response(
+             {"cartitems":cartItems, "cart_price":total_cart_price, "cart_quantity": total_cart_quantity},
+                status=status.HTTP_200_OK
+        )

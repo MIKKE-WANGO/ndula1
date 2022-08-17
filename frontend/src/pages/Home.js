@@ -85,7 +85,7 @@ const Home = () => {
       {products.map(product =>
         product.status === 'new' ?
         <div className='col-child'  key={product.id}>
-          <Link to="#">
+          <Link to={`/product/${product.id}`}>
             <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
             <p className='pbrand'>{product.brand}</p>
             <p className='pname'>{product.name}</p>
@@ -107,7 +107,7 @@ const Home = () => {
       {products.map(product =>
         product.status === 'top' ?
         <div className='col-child'  key={product.id}>
-          <Link to="#">
+          <Link to={`/product/${product.id}`}>
             <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
             <p className='pbrand'>{product.brand}</p>
             <p className='pname'>{product.name}</p>

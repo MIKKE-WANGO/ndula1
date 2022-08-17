@@ -104,6 +104,7 @@ class Product(models.Model):
     description = models.TextField(null=True,blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
+    rating = models.DecimalField(max_digits= 7, decimal_places=2,blank=True, default=0)
     image = CloudinaryField('image')
     image1 = CloudinaryField('image')
     image2 = CloudinaryField('image')
@@ -115,6 +116,15 @@ class Product(models.Model):
         total = sum([size.quantity for size in sizes])
         return total
 
+    @property
+    def get_avg_rating(self):
+        reviews = self.review_set.all()
+        average = mean([review.rating for review in reviews])
+        self.rating = average
+        self.save()
+        return average
+
+
     def __str__(self):
         return self.name
 
@@ -125,5 +135,74 @@ class Sizes(models.Model):
     quantity = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
-        return self.size
+        return "{}".format(self.size) + " " + self.Product.name
 
+
+class WishlistItem(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True,)
+    product =  models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.product.name
+
+
+class Review(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True,)
+    
+    name = models.CharField(max_length=200,blank=True)
+    product =  models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    rating = models.DecimalField(max_digits= 7, decimal_places=2,blank=True, default=0)
+    comment = models.TextField(null=True,blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+
+
+
+class Order(models.Model):
+    class Status(models.TextChoices):
+        PROCESSING = 'Processing'
+        TRANSIT = 'Transit'
+        ARRIVED = 'Arrived'
+
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=False)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_ordered = models.DateField(null=True)
+    paid = models.BooleanField(default=False)
+    status =  models.CharField(max_length=20,choices=Status.choices, default=Status.PROCESSING)
+    complete = models.BooleanField(default=False)
+    transaction_id = models.CharField(max_length=100, null=True,blank=True)
+
+    def __str__(self):
+        return self.customer.__str__() + " " + str(self.id)
+
+    #total price
+    @property
+    def get_cart_total_price(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_total_price for item in orderitems])
+        return total
+
+    #total quantity
+    @property
+    def get_cart_quantity(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.quantity for item in orderitems])
+        return total
+
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    size = models.IntegerField(default=0, null=True, blank=True)
+
+    def __str__(self):
+        return self.product.name
+
+
+    @property
+    def get_total_price(self):
+        total = self.product.price *self.quantity
+        return total

@@ -21,6 +21,9 @@ import RequestPasswordReset from "./pages/RequestPasswordReset";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { Zoom} from 'react-toastify';
+import Product from "./pages/Product";
+import Checkout from "./pages/Checkout";
+import Acount from "./pages/Acount";
 
   
 function App() {
@@ -37,6 +40,12 @@ function App() {
             <Route path="/login" element={<Login  />}/>
             <Route path="/cart" element={<Cart/>}/>           
             <Route path="/shop" element={<Shop/>}/>
+                      
+            <Route path="/checkout" element={<Checkout/>}/>
+                      
+            <Route path="/account" element={<Acount/>}/>
+                   
+            <Route path="/product/:id" element={<Product />}/>
                        
         </Routes>  
         <ToastContainer theme='dark' transition={Zoom} />

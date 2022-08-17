@@ -95,6 +95,22 @@ class SizesAdmin(admin.ModelAdmin):
     
     list_filter = ('size', 'quantity')
 
+class WishlistItemAdnmin(admin.ModelAdmin):
+    list_display = ('user', 'product')
+
+
+class ReviewAdnmin(admin.ModelAdmin):
+    list_display = ('user', 'product', 'rating')
+
+
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id','customer', 'paid', 'complete', 'date_ordered')
+    ordering = ('date_ordered',)
+    list_filter = ('paid', 'complete')
+
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('product','order', 'quantity', 'size', 'date_added')
 
 
 admin.site.register(User, UserAdmin,)
@@ -102,3 +118,11 @@ admin.site.register(ResetPasswordCode ,ResetPasswordCodeAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Sizes, SizesAdmin)
 admin.site.register(Product, ProductAdmin)
+
+admin.site.register(WishlistItem,WishlistItemAdnmin)
+
+admin.site.register(Review,ReviewAdnmin)
+
+
+admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderItem, OrderItemAdmin)

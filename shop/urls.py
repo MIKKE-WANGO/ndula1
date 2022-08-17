@@ -11,4 +11,14 @@ urlpatterns = [
   
   path('products', ProductsListView.as_view()),
   path('product-search', ProductSearchView.as_view()),
+  path('product/<str:pk>', ProductDetailView.as_view()),
+  
+  path('recommended', RecommendedView.as_view()),
+  
+  path('wishlist', WishlistItemView.as_view()),
+  
+  path('review', CreateReviewView.as_view()),
+  path('get-reviews', GetReviewView.as_view()),
+
+  path('order', ManageOrder.as_view()),
 ]

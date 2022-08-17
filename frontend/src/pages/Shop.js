@@ -3,9 +3,7 @@ import "../css/shop.css"
 
 import { toast } from 'react-toastify';
 
-import { Link, useNavigate } from "react-router-dom"
-
-
+import { Link} from "react-router-dom"
 
 const Shop = () => {
 
@@ -113,7 +111,7 @@ const Shop = () => {
         
         <div className='search'>
           <form onSubmit={e => onSubmit(e)} >
-            <input type="text" placeholder="Search.." name="search" autoComplete='false'  onChange={e => onChange(e)} />
+            <input type="text" placeholder="Search.." name="search" autoComplete='off'  onChange={e => onChange(e)} />
             <button type="submit"><i class="fa fa-search"></i></button>
           </form>
         </div>
@@ -146,7 +144,7 @@ const Shop = () => {
               brand === 'ALL'
               ?
                 <div className='col-child' key={product.id}>
-                  <Link to="#">
+                  <Link to={`/product/${product.id}`}>
                     <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
                     <p className='pbrand'>{product.brand}</p>
                     <p className='pname'>{product.name}</p>
@@ -161,7 +159,7 @@ const Shop = () => {
                   product.brand === 'nike'
                   ?
                     <div className='col-child' key={product.id}>
-                    <Link to="#">
+                    <Link to={`/product/${product.id}`}>
                       <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
                       <p className='pbrand'>{product.brand}</p>
                       <p className='pname'>{product.name}</p>
@@ -177,7 +175,7 @@ const Shop = () => {
                     product.brand === 'adiddas'
                     ?
                       <div className='col-child' key={product.id}>
-                      <Link to="#">
+                      <Link to={`/product/${product.id}`}>
                         <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
                         <p className='pbrand'>{product.brand}</p>
                         <p className='pname'>{product.name}</p>
@@ -192,7 +190,7 @@ const Shop = () => {
                       product.brand === 'new balance'
                       ?
                         <div className='col-child' key={product.id}>
-                        <Link to="#">
+                        <Link to={`/product/${product.id}`}>
                           <img src={`https://res.cloudinary.com/dgcbtjq3c/${product.image}`}  alt={product.name}/>
                           <p className='pbrand'>{product.brand}</p>
                           <p className='pname'>{product.name}</p>
