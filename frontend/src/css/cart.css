@@ -49,3 +49,9 @@
 .gotocheckout p{
     padding: 5px;
 }
+
+@media(max-width: 570px){
+    .quantitycart{
+        width: 80%;
+    }
+}
