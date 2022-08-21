@@ -1,0 +1,173 @@
+.checkout{
+    display: inline-flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.order-summary{
+    width: 40%;
+    border-right: 1px solid rgb(171, 171, 171);
+}
+
+.order-details{
+    width: 60%;
+    display: block;
+    background-color: white;
+}
+
+.show-summary{
+    height: 50px;
+    width: 100%;
+    display: none;
+}
+
+.show-summary .show1{
+    width: 90%;
+    color: #818181;
+    padding: 10px;
+    font-size: 15px;
+    padding-top: 15px;
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+
+.show-summary .show2{
+    width: 10%;
+    text-align: right;
+    width: 80%;
+    color: black;
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+.summary{
+    width: 100%;
+    display: block;
+}
+
+.summary-child{
+    width: 100%;
+    display: inline-flex;
+    justify-content:flex-start;
+    align-items: center;
+    padding-left: 5px;
+    padding-top: 8px;
+}
+
+.summary-child img{
+    height:100px;
+    width: 100px;
+}
+
+.pname-checkout{
+    font-size: 14px;
+    padding: 3px;
+}
+
+.pname-checkout{
+    font-size: 14px;
+    padding: 5px;
+    padding-top: 2px;
+}
+
+.block-order{
+    padding-left: 5px;
+    display: block;
+}
+
+.show-total{
+    padding: 10px;
+    text-align: center;
+}
+
+.show-total p {
+    padding: 7px 1px;
+}
+
+.choose-method{
+    padding: 20px 2px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+}
+
+.choose-method button{
+    width: 20%;
+    padding: 8px;
+    margin: 10px;
+    margin-top: 1px;
+    margin-bottom: 5px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.choose-method button:hover{
+    border: 2px solid black;
+}
+
+.high{
+    border: 2px solid black;
+}
+
+.contact-details{
+    width:100%;
+    padding: 20px;
+    padding-left: 30px;
+    display: block;
+}
+
+.contact-details label{
+    display: block;
+    padding-bottom: 5px;
+}
+.contact-details input{
+    width:80%;
+    height:35px;
+}
+
+.contact-details button{
+    display: block;;
+    width: 80%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: red;
+    color:white;
+    border: none;
+    cursor: pointer;
+}
+.payments{
+    width: 60%;
+    padding: 20px;
+    padding-left: 28px;
+}
+@media(max-width: 700px){
+    .order-summary{
+        width:100%;
+        padding-top: 10px;
+    }
+
+    .order-details{
+        width: 100%;
+    }
+    .show-summary{
+        display: inline-flex;
+    }
+    .summary{
+        display: none;
+    }
+    .appear{
+        display: block;
+        
+    }
+    .choose-method button{
+        width: 40%;
+    }
+    .payments{
+        width: 80%;
+    }
+}

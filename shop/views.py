@@ -1,4 +1,6 @@
 
+import json
+from re import S
 from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response 
@@ -11,6 +13,7 @@ from .serializers import *
 from .models import *
 
 import random
+import datetime
 import math
 from django.utils.timezone import make_aware
 
@@ -339,7 +342,7 @@ class WishlistItemView(APIView):
         )
 
 
-      
+
 class CreateReviewView(APIView):
     def post(self, request, format=None):
         data = request.data
@@ -360,7 +363,6 @@ class CreateReviewView(APIView):
             {'success': 'Review created successfully'},
             status=status.HTTP_201_CREATED
         )
-
 
 
 class GetReviewView(APIView):
@@ -451,3 +453,127 @@ class ManageOrder(APIView):
              {"cartitems":cartItems, "cart_price":total_cart_price, "cart_quantity": total_cart_quantity},
                 status=status.HTTP_200_OK
         )
+
+
+class ProcessPayment(APIView):
+    
+    permission_classes = (permissions.AllowAny,)
+    def post(self, request, format=None):
+        data = request.data
+        method = data['method']
+        if (request.user.is_authenticated == True):
+            user = request.user
+            if(method == 'delivery'):
+                
+                county = data['county']
+                postal_code = data['postal_code']
+                address = data['address']
+                payment = data['payment']
+                customer, created = Customer.objects.get_or_create(user=user,name=user.name,email=user.email,phone=user.phone)
+                order, created = Order.objects.get_or_create(customer=customer, paid=False)
+                delivery,created = Delivery_details.objects.get_or_create(customer=customer,order=order,county=county,postal_code=postal_code,address=address)
+
+                transaction_id = datetime.datetime.now().timestamp() + customer.id
+                order.paid = True
+                order.delivery_method = method
+                order.payment_method = payment
+                order.transaction_id = transaction_id
+                order.date_ordered = datetime.datetime.now()
+                order.save()
+                return Response(
+                    {'success': 'payment made'},
+                    status=status.HTTP_200_OK
+                )
+
+            else:
+                payment = data['payment']
+                customer, created = Customer.objects.get_or_create(user=user,name=user.name,email=user.email,phone=user.phone)
+                order, created = Order.objects.get_or_create(customer=customer, paid=False)
+                transaction_id = datetime.datetime.now().timestamp() + customer.id
+                order.paid = True
+                order.delivery_method = method
+                order.payment_method = payment
+                order.transaction_id = transaction_id
+                order.save()
+                return Response(
+                    {'success': 'payment made'},
+                    status=status.HTTP_200_OK
+                )
+
+        else:
+            if(method == 'delivery'):
+                email = data['email']
+                phone = data['phone']
+                county = data['county']
+                postal_code = data['postal_code']
+                address = data['address']
+                full_name = data['full_name']
+                payment = data['payment']
+                cart = data['cart']
+
+                customer, created = Customer.objects.get_or_create(
+                    email=email
+                )
+
+                customer.name= full_name
+                customer.phone = phone
+                customer.save()
+                transaction_id = datetime.datetime.now().timestamp() + customer.id
+              
+                order = Order.objects.create(
+                    customer = customer,
+                    complete=False,
+                    paid = True,
+                    delivery_method = method,
+                    payment_method = payment,
+                    transaction_id = transaction_id,
+                    date_ordered = datetime.datetime.now()
+                
+                )
+
+
+                for i in cart:
+                    product = Product.objects.get(id=i)
+                    orderitem, created = OrderItem.objects.get_or_create(product=product, order=order,quantity=cart[i]['quantity'],size=cart[i]['size'])
+                
+                return Response(
+                    {'success': 'payment made'},
+                    status=status.HTTP_200_OK
+                )
+
+            else:
+                email = data['email']
+                phone = data['phone']
+                full_name = data['full_name']
+                payment = data['payment']
+                cart = data['cart']
+
+                customer, created = Customer.objects.get_or_create(
+                    email=email
+                )
+
+                customer.name= full_name
+                customer.phone = phone
+                customer.save()
+                transaction_id = datetime.datetime.now().timestamp() + customer.id
+              
+                order = Order.objects.create(
+                    customer = customer,
+                    complete=False,
+                    paid = True,
+                    delivery_method = method,
+                    payment_method = payment,
+                    transaction_id = transaction_id,
+                    date_ordered = datetime.datetime.now()
+                
+                )
+
+                for i in cart:
+                    product = Product.objects.get(id=i)
+                    orderitem, created = OrderItem.objects.get_or_create(product=product, order=order,quantity=cart[i]['quantity'],size=cart[i]['size'])
+                
+                
+                return Response(
+                    {'success': 'payment made'},
+                    status=status.HTTP_200_OK
+                )

@@ -21,4 +21,6 @@ urlpatterns = [
   path('get-reviews', GetReviewView.as_view()),
 
   path('order', ManageOrder.as_view()),
+  
+  path('payment', ProcessPayment.as_view()),
 ]

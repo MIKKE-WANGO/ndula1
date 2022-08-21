@@ -204,6 +204,9 @@ const Cart = () => {
             
           }
 
+      {empty 
+      ?<> </>
+      :
       <div className='gotocheckout'>
             <p>Total Price:{cartPrice}</p>
             
@@ -214,6 +217,8 @@ const Cart = () => {
                 </div>
 
       </div>
+      }
+
     </div>
   )
 }

@@ -76,7 +76,7 @@ class Customer(models.Model):
     email = models.EmailField( max_length=100, null=True,blank=True, unique=True)
     phone = models.CharField(max_length=10,null=True)
     def __str__(self):
-        return self.user.email
+        return self.email
 
 class Product(models.Model):
     class Color(models.TextChoices):
@@ -165,6 +165,16 @@ class Order(models.Model):
         TRANSIT = 'Transit'
         ARRIVED = 'Arrived'
 
+    
+    class Method(models.TextChoices):
+        DELIVERY = 'delivery'
+        PICKUP = 'pickup'
+    
+    class Payment(models.TextChoices):
+        PAYPAL ='paypal'
+        MPESA = 'mpesa'
+        NONE = 'none'
+
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_ordered = models.DateField(null=True)
@@ -172,6 +182,8 @@ class Order(models.Model):
     status =  models.CharField(max_length=20,choices=Status.choices, default=Status.PROCESSING)
     complete = models.BooleanField(default=False)
     transaction_id = models.CharField(max_length=100, null=True,blank=True)
+    delivery_method =  models.CharField(max_length=20,choices=Method.choices, default=Method.PICKUP)
+    payment_method =  models.CharField(max_length=20,choices=Payment.choices, default=Payment.NONE)
 
     def __str__(self):
         return self.customer.__str__() + " " + str(self.id)
@@ -206,3 +218,10 @@ class OrderItem(models.Model):
     def get_total_price(self):
         total = self.product.price *self.quantity
         return total
+
+class Delivery_details(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    order = models.OneToOneField(Order, on_delete=models.SET_NULL, null=True)
+    county = models.CharField(max_length=200,blank=True)
+    postal_code = models.IntegerField(default=0, null=True, blank=True)
+    address = models.IntegerField(default=0, null=True, blank=True)

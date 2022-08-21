@@ -24,12 +24,10 @@ import { Zoom} from 'react-toastify';
 import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
 import Acount from "./pages/Acount";
-
-  
 function App() {
 
   return (
-    <Router>
+     <Router>
         <Navbar />
         <div >
          <Routes>
@@ -52,7 +50,7 @@ function App() {
         </div>
         <Footer/>
         
-    
+        
   </Router>
    
   );

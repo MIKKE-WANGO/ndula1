@@ -352,7 +352,7 @@ const Product = (props) => {
                 <p className='pname'>{product.name}</p>
                 
                 <p className='pbrand'>{product.price} ksh</p>
-                <p className='pbrand' style={{color:'black'}}>SELECT SIZE</p>
+                <p className='pbrand' style={{color:'black'}}>AVAILABLE SIZES <i class="fa fa-arrow-down"></i></p>
 
                 <div className='sizes'>
                     {sizes.map(size =>
