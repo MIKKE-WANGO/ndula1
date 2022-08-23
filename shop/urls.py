@@ -23,4 +23,7 @@ urlpatterns = [
   path('order', ManageOrder.as_view()),
   
   path('payment', ProcessPayment.as_view()),
+
+  path('stk_push', stk_push, name='stk_push'),
+  path('daraja/stk-push', stk_push_callback, name='mpesa_stk_push_callback'),
 ]

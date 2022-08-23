@@ -211,6 +211,23 @@ let redirect = ()  => {
 
   }
 
+  async function mpesa_call() {
+    let response = await fetch('https://ndula-wango.herokuapp.com/shop/stk_push', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',      
+                 
+              'Authorization': `Bearer ${localStorage.getItem('access')}`,                             
+          },  
+    });
+    let data = await response.json();
+    console.log("mpesa: " + data)
+      
+    
+
+  }
+
   return (
     <div className='home'>
 
@@ -340,7 +357,13 @@ let redirect = ()  => {
           }
 
           <div className='payments'>
+         
           {showPayments?
+            <>
+              <div>
+                <button className='mpesa' onClick={e => mpesa_call()}>MPESA</button>
+
+              </div>
            
               <PayPalScriptProvider options={{ "client-id": "AVJJzeDI8ntCsuE7H3BmXTAlP5XofdGi9b24IrtrN2I6271HewkaaH-Glx2HAHUt0v4pQhXss7sHtiN_" }}>
               <PayPalButtons  style={{color:'silver'}}
@@ -377,8 +400,9 @@ let redirect = ()  => {
               
               />
               </PayPalScriptProvider>
-              
+              </>
               :<></>
+
             
           }
           </div>
