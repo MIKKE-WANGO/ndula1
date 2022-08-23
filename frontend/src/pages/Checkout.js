@@ -218,7 +218,7 @@ let redirect = ()  => {
               'Content-Type': 'application/json',
               'Accept': 'application/json',      
                  
-              'Authorization': `Bearer ${localStorage.getItem('access')}`,                             
+                                          
           },  
     });
     let data = await response.json();
