@@ -589,7 +589,7 @@ def stk_push(request):
     amount = 1
     account_reference = 'Mundati'
     transaction_desc = 'Test stk push'
-    callback_url = 'mpesa_stk_push_callback'
+    callback_url = 'https://ndula-wango.herokuapp.com/shop/mpesa_stk_push_callback'
     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
     print(response)
     return Response(
