@@ -222,7 +222,6 @@ let redirect = ()  => {
           },  
     });
     let data = await response.json();
-    console.log("mpesa: " + data)
       
     
 

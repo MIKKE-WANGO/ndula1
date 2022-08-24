@@ -216,7 +216,7 @@ MPESA_ENVIRONMENT = 'sandbox'
 # Credentials for the daraja app
 
 MPESA_CONSUMER_KEY = 'NKAcnRa0sEGlTB0j5YkJfXRGtMKF6R16'
-MPESA_CONSUMER_SECRET = ' jV6O9LHsprZ1rElA'
+MPESA_CONSUMER_SECRET = 'jV6O9LHsprZ1rElA'
 
 #Shortcode to use for transactions. For sandbox  use the Shortcode 1 provided on test credentials page
 
@@ -226,7 +226,7 @@ MPESA_SHORTCODE = "174379"
 # This is only used on sandbox, do not set this variable in production
 # For sandbox use the Lipa na MPESA Online Shorcode provided on test credentials page
 
-MPESA_EXPRESS_SHORTCODE = 'mpesa_express_shortcode'
+MPESA_EXPRESS_SHORTCODE = "174379"
 
 # Type of shortcode
 # Possible values:

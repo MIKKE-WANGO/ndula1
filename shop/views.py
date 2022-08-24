@@ -587,11 +587,12 @@ def stk_push(request):
     # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
     phone_number = '0746460915'
     amount = 1
-    account_reference = 'Mundati'
+    account_reference = 'Ndula'
     transaction_desc = 'Test stk push'
     callback_url = 'https://ndula-wango.herokuapp.com/shop/mpesa_stk_push_callback'
     response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
     print(response)
+    print(json.loads(response.text))
     return Response(
                     {'success': response},
                     status=status.HTTP_200_OK
@@ -602,4 +603,5 @@ def stk_push(request):
 @permission_classes([AllowAny])
 def stk_push_callback(request):
         data = request.body
+        print(data)
     

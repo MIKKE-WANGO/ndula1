@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 from .models import *
-
+from django_daraja.models import AccessToken
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -126,3 +126,5 @@ admin.site.register(Review,ReviewAdnmin)
 admin.site.register(Delivery_details)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)
+
+admin.site.register(AccessToken)
