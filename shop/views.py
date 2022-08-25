@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response 
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-
+from django_daraja.models import AccessToken
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -582,7 +582,7 @@ class ProcessPayment(APIView):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def stk_push(request):
-
+    AccessToken.objects.all().delete()
     cl = MpesaClient()
     # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
     phone_number = '0746460915'
