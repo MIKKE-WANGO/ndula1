@@ -603,5 +603,6 @@ def stk_push(request):
 @permission_classes([AllowAny])
 def stk_push_callback(request):
         data = request.body
-        print(data)
+        print(data['ResultCode'])
+        print(data['ResultDesc'])
     
