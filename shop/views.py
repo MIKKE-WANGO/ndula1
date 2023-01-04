@@ -288,6 +288,7 @@ class ProductDetailView(APIView):
             {'product': product.data,'wishlist':wishlist, 'sizes':sizes.data},
             status=status.HTTP_200_OK
             )
+            
         else:          
             
             sizes = Sizes.objects.filter(Product=product)

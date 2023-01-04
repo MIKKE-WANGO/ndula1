@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     
-     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -194,11 +194,11 @@ SIMPLE_JWT = {
 
 cloudinary.config( 
   cloud_name = "dgcbtjq3c", 
-  api_key = "936199633878895", 
-  api_secret = "1m_yk_HTf-t6MUxf9aUF7YazUB0" 
+  api_key = "", 
+  api_secret = "" 
 )
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000']
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'http://localhost:8000', ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -215,8 +215,8 @@ MPESA_ENVIRONMENT = 'sandbox'
 
 # Credentials for the daraja app
 
-MPESA_CONSUMER_KEY = 'NKAcnRa0sEGlTB0j5YkJfXRGtMKF6R16'
-MPESA_CONSUMER_SECRET = 'jV6O9LHsprZ1rElA'
+MPESA_CONSUMER_KEY = ''
+MPESA_CONSUMER_SECRET = ''
 
 #Shortcode to use for transactions. For sandbox  use the Shortcode 1 provided on test credentials page
 
@@ -239,7 +239,7 @@ MPESA_SHORTCODE_TYPE = 'till_number'
 # Sandbox passkey is available on test credentials page
 # Production passkey is sent via email once you go live
 
-MPESA_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+MPESA_PASSKEY = ''
 
 # Username for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
 
@@ -247,4 +247,4 @@ MPESA_INITIATOR_USERNAME = 'Ndula'
 
 # Plaintext password for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
 
-MPESA_INITIATOR_SECURITY_CREDENTIAL = 'mananasi25'
+MPESA_INITIATOR_SECURITY_CREDENTIAL = ''

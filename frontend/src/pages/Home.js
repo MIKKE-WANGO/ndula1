@@ -35,7 +35,7 @@ const Home = () => {
     
 
     async function getProducts() {
-        let response = await fetch('https://ndula-wango.herokuapp.com/shop/products', {
+        let response = await fetch('http://127.0.0.1:8000/shop/products', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
